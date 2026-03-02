@@ -1,20 +1,28 @@
 import axios from 'axios'
 
+let _authToken = null
+let _projectId = null
+
+export function setAuthToken(token) {
+  _authToken = token
+}
+
+export function setProjectId(id) {
+  _projectId = id
+}
+
 const client = axios.create({
   baseURL: '/api/v1',
   headers: { 'Content-Type': 'application/json' },
 })
 
 client.interceptors.request.use((config) => {
-  const projectId = localStorage.getItem('yqa_project_id')
-  const apiKey = localStorage.getItem('yqa_api_key')
-
-  if (apiKey) {
-    config.headers['Authorization'] = `Bearer ${apiKey}`
+  if (_authToken) {
+    config.headers['Authorization'] = `Bearer ${_authToken}`
   }
 
-  if (projectId && config.url && !config.url.includes('/projects/')) {
-    config.url = `/projects/${projectId}/pen_testing${config.url}`
+  if (_projectId && config.url && !config.url.includes('/projects/')) {
+    config.url = `/projects/${_projectId}/pen_testing${config.url}`
   }
 
   return config
@@ -31,6 +39,20 @@ client.interceptors.response.use(
 function prefix() {
   return ''
 }
+
+// Auth
+export const authLogin = (email, password) =>
+  client.post('/auth/login', { user: { email, password } })
+export const authRegister = (data) =>
+  client.post('/auth/register', { user: data })
+export const authLogout = () =>
+  client.delete('/auth/logout')
+export const authMe = () =>
+  client.get('/auth/me')
+export const authForgotPassword = (email) =>
+  client.post('/auth/forgot_password', { user: { email } })
+export const getProjects = () =>
+  client.get('/projects')
 
 // Scans
 export const getScans = (params) => client.get(`${prefix()}/scans`, { params })
