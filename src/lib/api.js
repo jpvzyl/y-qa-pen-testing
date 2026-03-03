@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { installMockApi } from './mockApi'
+
+export const DEMO_MODE = import.meta.env.VITE_DEMO_MODE === 'true'
 
 let _authToken = null
 let _projectId = null
@@ -17,7 +18,10 @@ const client = axios.create({
   headers: { 'Content-Type': 'application/json' },
 })
 
-installMockApi(client)
+if (DEMO_MODE) {
+  const { installMockApi } = await import('./mockApi')
+  installMockApi(client)
+}
 
 client.interceptors.request.use((config) => {
   if (_authToken) {
@@ -34,7 +38,7 @@ client.interceptors.request.use((config) => {
 client.interceptors.response.use(
   (res) => res,
   (err) => {
-    if (err.message === 'MOCK_INTERCEPT') return Promise.reject(err)
+    if (err.message === 'MOCK_INTERCEPT' && err.__mockResponse) return Promise.resolve(err.__mockResponse)
     const message = err.response?.data?.error || err.response?.data?.message || err.message
     return Promise.reject(new Error(message))
   }
