@@ -17,6 +17,7 @@ import Vulnerabilities from './pages/Vulnerabilities'
 import Compliance from './pages/Compliance'
 import ThreatIntel from './pages/ThreatIntel'
 import Settings from './pages/Settings'
+import PitchDeck from './pages/PitchDeck'
 
 export default function App() {
   return (
@@ -48,6 +49,7 @@ export default function App() {
           <Route path="threat-intel" element={<ThreatIntel />} />
           <Route path="compliance" element={<Compliance />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="pitch" element={<PitchDeck />} />
         </Route>
       </Routes>
     </AuthProvider>

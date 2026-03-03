@@ -1,5 +1,5 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
-import { Shield, ScanSearch, Globe, Settings, Menu, X, LogOut, User, Bug, FileCheck, Radar, LayoutDashboard } from 'lucide-react'
+import { Shield, ScanSearch, Globe, Settings, Menu, X, LogOut, User, Bug, FileCheck, Radar, LayoutDashboard, Presentation } from 'lucide-react'
 import { useState } from 'react'
 import { useAuth } from '../lib/auth'
 import ProjectSelector from './ProjectSelector'
@@ -30,6 +30,7 @@ const navSections = [
     label: 'System',
     items: [
       { to: '/settings', icon: Settings, label: 'Settings' },
+      { to: '/pitch', icon: Presentation, label: 'Pitch Deck' },
     ],
   },
 ]
