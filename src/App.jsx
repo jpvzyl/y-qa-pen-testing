@@ -13,6 +13,9 @@ import Findings from './pages/Findings'
 import FindingDetail from './pages/FindingDetail'
 import Reports from './pages/Reports'
 import AttackSurface from './pages/AttackSurface'
+import Vulnerabilities from './pages/Vulnerabilities'
+import Compliance from './pages/Compliance'
+import ThreatIntel from './pages/ThreatIntel'
 import Settings from './pages/Settings'
 
 export default function App() {
@@ -40,7 +43,10 @@ export default function App() {
             <Route path="findings/:findingId" element={<FindingDetail />} />
             <Route path="reports" element={<Reports />} />
           </Route>
+          <Route path="vulnerabilities" element={<Vulnerabilities />} />
           <Route path="attack-surface" element={<AttackSurface />} />
+          <Route path="threat-intel" element={<ThreatIntel />} />
+          <Route path="compliance" element={<Compliance />} />
           <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>
