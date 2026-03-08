@@ -304,73 +304,97 @@ The pen testing module features a dark-themed, glassmorphic UI with real-time da
 
 ## 11. IP Valuation
 
-### Methodology
+*Confidential — This section values only the intellectual property (IP). No revenue, no customers, no brand value is included. The platform is pre-market; the valuation accounts for that and explains what the IP enables when we go to market or raise funding.*
 
-The intellectual property valuation considers three approaches:
+### Scope: What We Mean by "IP"
 
-#### A. Cost Approach — What Would It Cost to Rebuild?
+| IP Component | What It Includes | Evidence |
+|--------------|------------------|----------|
+| **Software & codebase** | Working platform: 55+ models, 47 controllers, 15+ services, 17 background jobs, 40+ DB tables | Full stack: Rails 7.1, PostgreSQL, React, Redis, Sidekiq |
+| **Algorithms & methods** | QUBO formulation for test optimization; digital twin build/sync/impact; dual-phase Claude pipeline; defect prediction; pen testing agent orchestration | `QuantumOptimizationService`, `DigitalTwinService`, `ReconAgentService`, `ExploitAgentService` |
+| **Integrations & APIs** | Production-ready: D-Wave, IBM Quantum, Anthropic (Sonnet 4 + Opus 4), OpenAI GPT-4, GitHub, Playwright, Stripe | Service classes; env-driven config |
+| **Architecture & design** | Dual Claude (Sonnet → Opus) flow; digital twin ↔ quantum ↔ test mapping; codebase → TDD → validation; 6-phase pen test pipeline | End-to-end flows in code |
+| **Trade knowledge** | Prompts, weights, constraint handling, solver selection, OWASP/CVSS/MITRE mappings, compliance frameworks | Embedded in services and jobs |
 
-| Component | Effort | Rate (R/month) | Cost (ZAR) |
-|-----------|--------|-----------------|------------|
-| Backend (55 models, 47 controllers, API) | 14 dev-months | R120,000 | R1,680,000 |
-| AI service layer (8 services, dual-model) | 8 dev-months | R150,000 | R1,200,000 |
-| Pen testing module (frontend + API) | 6 dev-months | R120,000 | R720,000 |
-| ISO certification module | 5 dev-months | R120,000 | R600,000 |
-| Quantum optimization engine | 4 dev-months | R150,000 | R600,000 |
-| Digital twin system | 4 dev-months | R120,000 | R480,000 |
-| Infrastructure, DevOps, testing | 4 dev-months | R100,000 | R400,000 |
-| Product design, UX, architecture | 6 dev-months | R100,000 | R600,000 |
-| **Subtotal (development)** | **51 dev-months** | | **R6,280,000** |
-| Domain expertise (security, compliance, AI) | Multiplier: 1.5x | | R3,140,000 |
-| **Total Reproduction Cost** | | | **R9,420,000** |
+### Comparable Reference Points
 
-#### B. Income Approach — Discounted Future Cash Flows
+| Comparable | Type | Value / Funding | Source |
+|------------|------|-----------------|--------|
+| **Testim** | Acquisition (product + team + traction) | **~USD 200M** (Feb 2022) | Calcalistech, VentureBeat, Tricentis |
+| **Tricentis** | Company valuation | **~USD 4.5Bn** (Nov 2024); ARR >USD 400M | Bloomberg, GTCR, SiliconANGLE |
+| **mabl** | Venture funding | **~USD 76.1M** total (Series C) | Tracxn |
+| **AI testing sector** | Sector aggregate | **~USD 624M** VC in 49 companies; 8 acquisitions | Tracxn |
 
-| Assumption | Value |
-|------------|-------|
-| Year 3 ARR | R30M - R55M |
-| SaaS revenue multiple (AI/security) | 8-12x ARR |
-| Discount rate (SA risk-adjusted) | 25% |
-| Probability of achieving projections | 60% |
+Testim had **narrower** scope (self-healing, TestOps, SaaS) but **revenue and customers**. Y-QA has **broader** IP (quantum, digital twin, Dual Claude, TDD, codebase, defects, pen testing, ISO, design) but **no revenue yet**. We value our IP at a fraction of a Testim-style exit.
 
-| Scenario | Year 3 ARR | Multiple | Gross Value | Risk-Adjusted | PV (ZAR) |
-|----------|-----------|----------|-------------|---------------|-----------|
-| Conservative | R30M | 8x | R240M | R144M | R73.7M |
-| Base | R42M | 10x | R420M | R252M | R129M |
-| Optimistic | R55M | 12x | R660M | R396M | R203M |
+### Methodology: From Comparable Exit to IP-Only Range
 
-#### C. Market Comparable Approach
+- **Anchor**: Testim acquisition ~USD 200M (proven product + market fit)
+- **IP breadth**: Y-QA spans more differentiators than Testim had at acquisition (see Section 8)
+- **Pre-market discount**: No revenue, no customers → IP valued at **12–40%** of comparable exit
+- **FX**: 1 USD ≈ 16.5 ZAR
 
-| Company | Valuation | Revenue Multiple | Notes |
-|---------|-----------|------------------|-------|
-| Snyk | $7.4B (2024) | ~30x ARR | Developer security |
-| Veracode | $2.5B (2024) | ~12x ARR | AppSec testing |
-| QualityWorks (SA) | Est. R50-100M | ~8x ARR | QA services |
-| BugCrowd | $1B+ (2024) | ~15x ARR | Pen testing platform |
+### IP-Only Valuation Range
 
-### IP Valuation Summary
+| Scenario | Rationale | USD (approx.) | ZAR (approx.) @ R16.50 |
+|----------|-----------|----------------|--------------------------|
+| **Conservative** | IP only; pre-market; ~12–15% of Testim-style exit; technology and commercialization risk | USD 25 – 30M | **ZAR 412M – 495M** |
+| **Base case** | IP only; working platform; unique features; ~18–22% of reference; still pre-revenue | USD 35 – 45M | **ZAR 577M – 742M** |
+| **Upside** | Same IP; value when we go to market or raise (early traction / term sheet); ~30–40% of reference | USD 60 – 80M | **ZAR 990M – 1.32Bn** |
 
-| Method | Low Estimate (ZAR) | Mid Estimate (ZAR) | High Estimate (ZAR) |
-|--------|--------------------|--------------------|---------------------|
-| **Cost Approach** | R9.4M | R12M | R15M |
-| **Income Approach** | R73.7M | R129M | R203M |
-| **Market Comparable** | R40M | R80M | R150M |
+### IP-to-Market-Value Coefficient (Industry-Justified)
 
-### Recommended IP Valuation Range
+**Notation:**
 
-| | ZAR | USD Equivalent (~R18.50) |
-|-|-----|--------------------------|
-| **Floor (cost-based)** | **R9.4 Million** | ~$508,000 |
-| **Current Fair Value** | **R25 - R40 Million** | ~$1.35M - $2.16M |
-| **Growth Potential (3-year)** | **R80 - R150 Million** | ~$4.3M - $8.1M |
+| Symbol | Definition | Typical Value |
+|--------|-----------|---------------|
+| V_IP | Fair value of IP (pre-market, today) | ZAR 412M – 1.32Bn |
+| MV | Possible market value at comparable exit | Derived: MV = V_IP / θ |
+| θ (theta) | IP share of market value at exit | 0.25 – 0.35 (25–35%) |
+| m | Revenue multiple at exit (EV/ARR) | 8 (mid-range SaaS, 6–12x) |
+| ARR | Possible annual recurring revenue at exit | Derived: ARR = MV / m |
 
-**Key value drivers:**
-- Dual-AI architecture (Sonnet + Opus validation loop) — no competitor has this
-- Unified QA + Security + Compliance — unique market positioning
-- 55+ production data models with deep domain logic
-- Quantum-inspired optimization — genuine technical moat
-- South African cost base with global SaaS pricing potential
-- Working product with comprehensive demo data
+**Formulas:**
+
+```
+Step 1:  MV  = V_IP / θ           (possible market value from IP)
+Step 2:  ARR = MV / m              (possible income from market value)
+Combined: ARR = V_IP / (θ × m)    (possible income from IP directly)
+```
+
+**Why θ ∈ [0.25, 0.35]:** In tech M&A, intangibles (including IP) represent 20–35% of transaction value; the remainder is revenue multiple, customer base, and team (Ocean Tomo, Aon, tech M&A studies). Pre-revenue startups with strong IP typically fall in the 25–35% band.
+
+### Worked Example (Base Case)
+
+- V_IP = ZAR 660M (mid base case)
+- θ = 0.30 (30% IP share)
+- m = 8 (EV/ARR multiple)
+
+```
+MV  = 660 / 0.30 = ZAR 2,200M = ZAR 2.2Bn (possible market value)
+ARR = 2,200 / 8  = ZAR 275M (possible annual recurring revenue)
+```
+
+**Per unit of IP value:** possible market value = 1/θ = 3.33x; possible ARR = 1/(θ×m) = 0.42x
+
+### Applied to Y-QA (IP → Possible Market Value → Possible ARR)
+
+| Scenario | IP Value (ZAR) | Possible Market Value (3×–4× IP) | Possible ARR (MV ÷ 8) |
+|----------|----------------|----------------------------------|------------------------|
+| Conservative | ZAR 412 – 495M | ZAR 1.24 – 1.98Bn | ZAR 155 – 248M |
+| Base case | ZAR 577 – 742M | ZAR 1.73 – 2.97Bn | ZAR 216 – 371M |
+| Upside | ZAR 990M – 1.32Bn | ZAR 2.97 – 5.28Bn | ZAR 371 – 660M |
+
+### Key Value Drivers
+
+- **Dual Claude AI Architecture** (Sonnet 4 + Opus 4 validation loop) — no competitor ships this
+- **Application Digital Twin** for QA — unique in commercial test automation
+- **Quantum-inspired optimization** with real D-Wave and IBM Quantum APIs — strong technical moat
+- **Unified QA + Security + Compliance** — only platform covering all three in one product
+- **55+ production data models** with deep domain logic across 40+ database tables
+- **Revolutionary TDD pipeline** — codebase-aware analysis → Opus validation → development-ready tests
+- **Working product with comprehensive demo data** — not a prototype, not a pitch deck
+- **South African cost base** with global SaaS pricing potential
 
 ---
 
@@ -378,12 +402,14 @@ The intellectual property valuation considers three approaches:
 
 ### What We've Built
 
-- Full production backend with 55+ models and 47 controllers
-- Three integrated frontend modules (Core, Pen Testing, ISO)
-- 8 AI services using Claude Sonnet 4, Opus 4, and GPT-4
-- Comprehensive test suites (159 frontend tests passing)
-- Live demo deployed at GitHub Pages
-- Seed data for full platform demonstration
+- Full production backend: 55+ models, 47 controllers, 15+ services, 17 background jobs, 40+ DB tables
+- Three integrated frontend modules (Core QA, Pen Testing, ISO Certification)
+- 8 AI services: Claude Sonnet 4, Claude Opus 4, OpenAI GPT-4
+- Real quantum computing APIs: D-Wave and IBM Quantum integration
+- Full RSpec test suite (models, services, requests, jobs) + 159 frontend tests
+- Playwright E2E test framework with self-healing
+- Live demo deployed with comprehensive seed data
+- Complete architecture documentation and IP valuation framework
 
 ### What's Next
 

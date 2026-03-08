@@ -339,23 +339,25 @@ export default function PitchDeck() {
                 <tr className="border-b border-gray-800/50">
                   <th className="text-left py-2 px-3 font-semibold text-gray-400">Feature</th>
                   <th className="py-2 px-3 font-semibold text-red-400">Y-QA</th>
-                  <th className="py-2 px-3 font-semibold text-gray-500">Snyk</th>
-                  <th className="py-2 px-3 font-semibold text-gray-500">Veracode</th>
+                  <th className="py-2 px-3 font-semibold text-gray-500">Testim</th>
+                  <th className="py-2 px-3 font-semibold text-gray-500">mabl</th>
                   <th className="py-2 px-3 font-semibold text-gray-500">Burp Suite</th>
                 </tr>
               </thead>
               <tbody>
                 {[
-                  { f: 'AI test generation', y: true, s: false, v: false, b: false },
-                  { f: 'Full pen testing', y: true, s: false, v: false, b: true },
-                  { f: 'QA + Security unified', y: true, s: false, v: false, b: false },
-                  { f: 'Compliance mapping (5 frameworks)', y: true, s: false, v: false, b: false },
-                  { f: 'Digital twins', y: true, s: false, v: false, b: false },
-                  { f: 'Defect prediction', y: true, s: false, v: false, b: false },
-                  { f: 'Quantum optimization', y: true, s: false, v: false, b: false },
-                  { f: 'Self-healing tests', y: true, s: false, v: false, b: false },
-                  { f: 'ISO certification', y: true, s: false, v: false, b: false },
-                  { f: 'Dual-AI validation', y: true, s: false, v: false, b: false },
+                  { f: 'AI test generation (multi-LLM)', y: true, s: true, v: true, b: false },
+                  { f: 'Self-healing tests', y: true, s: true, v: true, b: false },
+                  { f: 'Visual regression + AI diff', y: true, s: true, v: true, b: false },
+                  { f: 'Full pen testing (6-phase)', y: true, s: false, v: false, b: true },
+                  { f: 'Dual Claude (Sonnet + Opus)', y: true, s: false, v: false, b: false },
+                  { f: 'Application digital twin', y: true, s: false, v: false, b: false },
+                  { f: 'Quantum test optimization (D-Wave/IBM)', y: true, s: false, v: false, b: false },
+                  { f: 'Codebase-aware TDD + Opus validation', y: true, s: false, v: false, b: false },
+                  { f: 'Predictive defect + root cause', y: true, s: false, v: false, b: false },
+                  { f: 'ISO 27001 certification', y: true, s: false, v: false, b: false },
+                  { f: 'Design import (Figma → test)', y: true, s: false, v: false, b: false },
+                  { f: 'AI exploratory testing', y: true, s: false, v: false, b: false },
                 ].map((row) => (
                   <tr key={row.f} className="border-b border-gray-800/30">
                     <td className="py-2 px-3 text-gray-400">{row.f}</td>
@@ -430,85 +432,115 @@ export default function PitchDeck() {
 
       {/* 8. IP Valuation */}
       <Section id="valuation">
-        <SectionTitle icon={DollarSign} title="IP Valuation" subtitle="Three valuation approaches for the Y-QA intellectual property." color="orange" />
+        <SectionTitle icon={DollarSign} title="IP Valuation (ZAR)" subtitle="IP-only valuation anchored to Testim (~USD 200M) acquisition comparable." color="orange" />
+
+        <GlassCard className="mb-4">
+          <h3 className="text-sm font-bold text-gray-200 mb-3">Comparable Reference Points</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs">
+              <thead><tr className="border-b border-gray-800/50">
+                <th className="text-left py-2 px-3 text-gray-500">Comparable</th>
+                <th className="text-left py-2 px-3 text-gray-500">Type</th>
+                <th className="text-right py-2 px-3 text-gray-500">Value</th>
+                <th className="text-left py-2 px-3 text-gray-500">Source</th>
+              </tr></thead>
+              <tbody className="text-gray-400">
+                <tr className="border-b border-gray-800/30"><td className="py-2 px-3 font-semibold text-orange-400">Testim</td><td className="py-2 px-3">Acquisition</td><td className="py-2 px-3 text-right font-mono text-orange-300">~USD 200M</td><td className="py-2 px-3">Tricentis, VentureBeat</td></tr>
+                <tr className="border-b border-gray-800/30"><td className="py-2 px-3 font-semibold text-gray-300">Tricentis</td><td className="py-2 px-3">Valuation</td><td className="py-2 px-3 text-right font-mono">~USD 4.5Bn</td><td className="py-2 px-3">Bloomberg, GTCR</td></tr>
+                <tr className="border-b border-gray-800/30"><td className="py-2 px-3 font-semibold text-gray-300">mabl</td><td className="py-2 px-3">Series C</td><td className="py-2 px-3 text-right font-mono">~USD 76.1M</td><td className="py-2 px-3">Tracxn</td></tr>
+                <tr><td className="py-2 px-3 font-semibold text-gray-300">AI Testing Sector</td><td className="py-2 px-3">Aggregate VC</td><td className="py-2 px-3 text-right font-mono">~USD 624M</td><td className="py-2 px-3">Tracxn (49 cos, 8 acq.)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="text-xs text-gray-600 mt-3">Testim had narrower scope (self-healing, TestOps). Y-QA has broader IP (quantum, digital twin, Dual Claude, TDD, pen testing, ISO) but no revenue yet. IP valued at 12-40% of a Testim-style exit.</p>
+        </GlassCard>
+
         <div className="grid md:grid-cols-3 gap-4 mb-4">
           <GlassCard>
-            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Cost Approach</h3>
-            <p className="text-xs text-gray-500 mb-3">What would it cost to rebuild from scratch?</p>
-            <div className="text-3xl font-bold text-orange-400">R9.4M</div>
-            <p className="text-xs text-gray-600 mt-1">51 dev-months at market rates + domain expertise multiplier</p>
+            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Conservative</h3>
+            <p className="text-xs text-gray-500 mb-2">~12-15% of Testim exit, risk-adjusted</p>
+            <div className="text-2xl font-bold text-orange-400">R412 - 495M</div>
+            <p className="text-xs text-gray-600 mt-1">USD 25 - 30M</p>
           </GlassCard>
           <GlassCard glow="orange">
-            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Current Fair Value</h3>
-            <p className="text-xs text-gray-500 mb-3">Blended valuation with risk adjustment</p>
-            <div className="text-3xl font-bold text-orange-400">R25 - 40M</div>
-            <p className="text-xs text-gray-600 mt-1">~$1.35M - $2.16M USD</p>
+            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Base Case</h3>
+            <p className="text-xs text-gray-500 mb-2">~18-22% of reference, working platform</p>
+            <div className="text-2xl font-bold text-orange-400">R577 - 742M</div>
+            <p className="text-xs text-gray-600 mt-1">USD 35 - 45M</p>
           </GlassCard>
           <GlassCard>
-            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">3-Year Potential</h3>
-            <p className="text-xs text-gray-500 mb-3">Income approach with market comparables</p>
-            <div className="text-3xl font-bold text-orange-400">R80 - 150M</div>
-            <p className="text-xs text-gray-600 mt-1">~$4.3M - $8.1M USD (8-12x projected ARR)</p>
+            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Upside (at GTM)</h3>
+            <p className="text-xs text-gray-500 mb-2">~30-40% of reference, early traction</p>
+            <div className="text-2xl font-bold text-orange-400">R990M - 1.32Bn</div>
+            <p className="text-xs text-gray-600 mt-1">USD 60 - 80M</p>
           </GlassCard>
         </div>
 
-        <GlassCard>
-          <h3 className="text-sm font-bold text-gray-200 mb-3">Development Cost Breakdown (Cost Approach)</h3>
+        <GlassCard className="mb-4">
+          <h3 className="text-sm font-bold text-gray-200 mb-3">IP-to-Market-Value Formula</h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <p className="text-xs text-gray-500 mb-3">IP typically represents 25-35% of company value at a comparable tech exit (Ocean Tomo, Aon, tech M&A studies).</p>
+              <div className="space-y-2 text-xs font-mono text-gray-400 bg-black/30 rounded-lg p-4">
+                <div><span className="text-purple-400">MV</span>  = V_IP / <span className="text-cyan-400">θ</span> <span className="text-gray-600 ml-4">possible market value</span></div>
+                <div><span className="text-green-400">ARR</span> = MV / <span className="text-orange-400">m</span> <span className="text-gray-600 ml-4">possible annual revenue</span></div>
+                <div className="border-t border-gray-800/50 pt-2"><span className="text-green-400">ARR</span> = V_IP / (<span className="text-cyan-400">θ</span> x <span className="text-orange-400">m</span>) <span className="text-gray-600 ml-4">combined</span></div>
+              </div>
+              <div className="mt-3 text-xs text-gray-600">
+                <span className="text-cyan-400">θ</span> = 0.25-0.35 (IP share) | <span className="text-orange-400">m</span> = 8 (EV/ARR multiple)
+              </div>
+            </div>
+            <div>
+              <p className="text-xs text-gray-500 mb-3">Worked example (base case, V_IP = R660M):</p>
+              <div className="space-y-2">
+                <div className="flex justify-between text-xs py-1.5 border-b border-gray-800/30">
+                  <span className="text-gray-400">Market Value (MV = 660 / 0.30)</span>
+                  <span className="font-mono font-bold text-orange-400">R2.2Bn</span>
+                </div>
+                <div className="flex justify-between text-xs py-1.5 border-b border-gray-800/30">
+                  <span className="text-gray-400">Possible ARR (MV / 8)</span>
+                  <span className="font-mono font-bold text-green-400">R275M</span>
+                </div>
+                <div className="flex justify-between text-xs py-1.5">
+                  <span className="text-gray-400">IP leverage (per R1 of IP)</span>
+                  <span className="font-mono text-gray-300">R3.33 MV, R0.42 ARR</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </GlassCard>
+
+        <GlassCard className="mb-4">
+          <h3 className="text-sm font-bold text-gray-200 mb-3">IP → Market Value → Possible ARR</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-xs">
-              <thead>
-                <tr className="border-b border-gray-800/50">
-                  <th className="text-left py-2 px-3 text-gray-500">Component</th>
-                  <th className="text-right py-2 px-3 text-gray-500">Effort</th>
-                  <th className="text-right py-2 px-3 text-gray-500">Rate/mo</th>
-                  <th className="text-right py-2 px-3 text-gray-500">Cost (ZAR)</th>
-                </tr>
-              </thead>
+              <thead><tr className="border-b border-gray-800/50">
+                <th className="text-left py-2 px-3 text-gray-500">Scenario</th>
+                <th className="text-right py-2 px-3 text-gray-500">IP Value (ZAR)</th>
+                <th className="text-right py-2 px-3 text-gray-500">Market Value (3-4x)</th>
+                <th className="text-right py-2 px-3 text-gray-500">Possible ARR</th>
+              </tr></thead>
               <tbody className="text-gray-400">
-                {[
-                  ['Backend (55 models, 47 controllers)', '14 months', 'R120K', 'R1,680,000'],
-                  ['AI Service Layer (8 services, dual-model)', '8 months', 'R150K', 'R1,200,000'],
-                  ['Pen Testing Module (frontend + API)', '6 months', 'R120K', 'R720,000'],
-                  ['ISO Certification Module', '5 months', 'R120K', 'R600,000'],
-                  ['Quantum Optimization Engine', '4 months', 'R150K', 'R600,000'],
-                  ['Digital Twin System', '4 months', 'R120K', 'R480,000'],
-                  ['Infrastructure, DevOps, Testing', '4 months', 'R100K', 'R400,000'],
-                  ['Product Design, UX, Architecture', '6 months', 'R100K', 'R600,000'],
-                ].map(([comp, effort, rate, cost]) => (
-                  <tr key={comp} className="border-b border-gray-800/30">
-                    <td className="py-2 px-3">{comp}</td>
-                    <td className="py-2 px-3 text-right font-mono">{effort}</td>
-                    <td className="py-2 px-3 text-right font-mono">{rate}</td>
-                    <td className="py-2 px-3 text-right font-mono text-orange-400">{cost}</td>
-                  </tr>
-                ))}
-                <tr className="border-b border-gray-800/30">
-                  <td className="py-2 px-3 font-semibold text-gray-300">Domain Expertise Multiplier (1.5x)</td>
-                  <td className="py-2 px-3" />
-                  <td className="py-2 px-3" />
-                  <td className="py-2 px-3 text-right font-mono text-orange-400">R3,140,000</td>
-                </tr>
-                <tr>
-                  <td className="py-2 px-3 font-bold text-gray-100">Total Reproduction Cost</td>
-                  <td className="py-2 px-3" />
-                  <td className="py-2 px-3 text-right text-gray-500 font-mono">51 months</td>
-                  <td className="py-2 px-3 text-right font-mono font-bold text-orange-300">R9,420,000</td>
-                </tr>
+                <tr className="border-b border-gray-800/30"><td className="py-2 px-3">Conservative</td><td className="py-2 px-3 text-right font-mono">R412 - 495M</td><td className="py-2 px-3 text-right font-mono">R1.24 - 1.98Bn</td><td className="py-2 px-3 text-right font-mono text-green-400">R155 - 248M</td></tr>
+                <tr className="border-b border-gray-800/30"><td className="py-2 px-3 font-semibold text-gray-200">Base case</td><td className="py-2 px-3 text-right font-mono text-orange-400">R577 - 742M</td><td className="py-2 px-3 text-right font-mono text-orange-400">R1.73 - 2.97Bn</td><td className="py-2 px-3 text-right font-mono text-green-400">R216 - 371M</td></tr>
+                <tr><td className="py-2 px-3">Upside</td><td className="py-2 px-3 text-right font-mono">R990M - 1.32Bn</td><td className="py-2 px-3 text-right font-mono">R2.97 - 5.28Bn</td><td className="py-2 px-3 text-right font-mono text-green-400">R371 - 660M</td></tr>
               </tbody>
             </table>
           </div>
         </GlassCard>
 
-        <GlassCard className="mt-4">
+        <GlassCard>
           <h3 className="text-sm font-bold text-gray-200 mb-3">Key Value Drivers</h3>
           <div className="grid md:grid-cols-2 gap-x-6 gap-y-2">
             {[
-              'Dual-AI architecture (Sonnet + Opus validation loop) — no competitor has this',
-              'Unified QA + Security + Compliance — unique market positioning',
-              '55+ production data models with deep domain logic',
-              'Quantum-inspired optimization — genuine technical moat',
+              'Dual Claude AI Architecture (Sonnet 4 + Opus 4) — no competitor ships this',
+              'Application Digital Twin for QA — unique in commercial test automation',
+              'Quantum optimization with real D-Wave & IBM Quantum APIs — strong technical moat',
+              'Unified QA + Security + Compliance — only platform covering all three',
+              '55+ production models, 15+ services, 17 background jobs, 40+ DB tables',
+              'Revolutionary TDD pipeline — codebase-aware → Opus validation → dev-ready tests',
+              'Working product with comprehensive demo data — not a prototype',
               'South African cost base with global SaaS pricing potential',
-              'Working product with comprehensive demo data and live deployment',
             ].map((d) => (
               <div key={d} className="flex items-start gap-2 py-1.5">
                 <CheckCircle2 className="h-4 w-4 text-orange-400 shrink-0 mt-0.5" />
