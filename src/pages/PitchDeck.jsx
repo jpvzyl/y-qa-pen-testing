@@ -269,25 +269,29 @@ export default function PitchDeck() {
         </div>
       </Section>
 
-      {/* 5. Demo: AI Flywheel */}
+      {/* 5. ISO 27001 Pen Test — Self-Assessment */}
       <Section id="demo">
-        <SectionTitle icon={Target} title="Demo: The AI Flywheel" subtitle="Pen testing independently confirms what Y-QA's core AI predicted." color="red" />
+        <SectionTitle icon={Target} title="ISO 27001 Pen Test — Self-Assessment" subtitle="Real penetration test against the Y-QA Platform codebase." color="red" />
         <GlassCard glow="red" className="mb-4">
           <p className="text-sm text-gray-300 mb-4">
-            The Y-QA Demo Event project is an <span className="text-gray-100 font-semibold">Event Management System</span> built with Rails 7.1, PostgreSQL, Stripe, Elasticsearch, and Hotwire. The pen testing module scans this exact target.
+            Y-QA performed an ISO 27001-aligned penetration test <span className="text-red-400 font-semibold">against its own codebase</span> — the Y-QA Platform (Rails 7.1, PostgreSQL, Redis, Sidekiq, Devise JWT, Claude/OpenAI integrations).
           </p>
           <div className="text-xs text-gray-500 font-mono bg-black/30 rounded-lg px-4 py-2 mb-4">
-            Target: https://demo-events.example.com
+            Target: Y-QA Platform — Rails 7.1.5.1 / Puma 6.6.0 / PostgreSQL 15
+          </div>
+          <div className="flex items-center gap-2 mt-2">
+            <span className="rounded-full bg-red-500/20 border border-red-500/30 px-3 py-1 text-xs font-bold text-red-400 uppercase">Verdict: FAIL</span>
+            <span className="text-xs text-gray-500">7 critical + 13 high-severity findings require remediation</span>
           </div>
         </GlassCard>
 
-        <div className="grid md:grid-cols-5 gap-3 mb-4">
+        <div className="grid grid-cols-5 gap-3 mb-4">
           {[
-            { sev: 'Critical', count: 6, color: 'bg-red-500/20 text-red-400 border-red-500/30' },
+            { sev: 'Critical', count: 7, color: 'bg-red-500/20 text-red-400 border-red-500/30' },
             { sev: 'High', count: 13, color: 'bg-orange-500/20 text-orange-400 border-orange-500/30' },
-            { sev: 'Medium', count: 15, color: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' },
-            { sev: 'Low', count: 9, color: 'bg-blue-500/20 text-blue-400 border-blue-500/30' },
-            { sev: 'Info', count: 6, color: 'bg-gray-500/20 text-gray-400 border-gray-500/30' },
+            { sev: 'Medium', count: 10, color: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' },
+            { sev: 'Low', count: 8, color: 'bg-blue-500/20 text-blue-400 border-blue-500/30' },
+            { sev: 'Info', count: 4, color: 'bg-gray-500/20 text-gray-400 border-gray-500/30' },
           ].map((s) => (
             <div key={s.sev} className={`rounded-xl border p-4 text-center ${s.color}`}>
               <div className="text-2xl font-bold">{s.count}</div>
@@ -296,36 +300,89 @@ export default function PitchDeck() {
           ))}
         </div>
 
-        <GlassCard>
-          <h3 className="text-sm font-bold text-gray-200 mb-3">AI Cross-Reference: Predictions vs. Pen Test Findings</h3>
+        <GlassCard className="mb-4">
+          <h3 className="text-sm font-bold text-red-400 mb-3">Top 5 Critical Findings</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-gray-800/50">
-                  <th className="text-left py-2 px-3 text-xs font-semibold text-gray-500 uppercase">Y-QA AI Prediction</th>
-                  <th className="text-left py-2 px-3 text-xs font-semibold text-gray-500 uppercase">Pen Test Finding</th>
+                  <th className="text-left py-2 px-3 text-xs font-semibold text-gray-500 uppercase">Finding</th>
                   <th className="text-center py-2 px-3 text-xs font-semibold text-gray-500 uppercase">CVSS</th>
-                  <th className="text-center py-2 px-3 text-xs font-semibold text-gray-500 uppercase">Status</th>
+                  <th className="text-left py-2 px-3 text-xs font-semibold text-gray-500 uppercase">Fix Priority</th>
                 </tr>
               </thead>
               <tbody className="text-gray-400">
                 {[
-                  { prediction: 'Race condition in payment processing', finding: 'Race Condition in Stripe Webhook Processing', cvss: '7.5', status: 'Confirmed' },
-                  { prediction: 'SQL Injection Risk in Event Filters', finding: 'SQL Injection in Event Search Filters', cvss: '9.8', status: 'Confirmed' },
-                  { prediction: 'Inconsistent Promo Code Validation', finding: 'Promo Code Bypass — Expired Codes Accepted', cvss: '7.2', status: 'Confirmed' },
-                  { prediction: 'Slow Page Load on Dashboard', finding: 'N+1 Query Timing Side Channel', cvss: '5.3', status: 'Confirmed' },
+                  { finding: 'Live Anthropic API Key committed to .env', cvss: '9.8', fix: 'Rotate key, add .env to .gitignore, purge git history' },
+                  { finding: 'OS Command Injection via system() in CodebaseAnalysisJob', cvss: '9.8', fix: 'Use array args for system(), validate branch names' },
+                  { finding: 'Hardcoded Devise Secret Key enables token forgery', cvss: '9.1', fix: 'Move to Rails credentials, rotate key' },
+                  { finding: 'Self-Assignable Admin Role at /api/v1/auth/register', cvss: '8.8', fix: 'Remove :role from sign_up_params' },
+                  { finding: 'Hardcoded real user credentials in service code', cvss: '8.6', fix: 'Remove defaults, use env vars only' },
                 ].map((r) => (
                   <tr key={r.cvss} className="border-b border-gray-800/30">
-                    <td className="py-2 px-3 text-xs text-purple-400">{r.prediction}</td>
-                    <td className="py-2 px-3 text-xs text-orange-400">{r.finding}</td>
+                    <td className="py-2 px-3 text-xs text-red-400">{r.finding}</td>
                     <td className="py-2 px-3 text-center text-xs font-mono font-bold text-red-400">{r.cvss}</td>
-                    <td className="py-2 px-3 text-center"><span className="rounded-full bg-green-500/15 px-2 py-0.5 text-[10px] font-semibold text-green-400">{r.status}</span></td>
+                    <td className="py-2 px-3 text-xs text-gray-500">{r.fix}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="text-xs text-gray-500 mt-3 italic">QA predictions feed security testing. Security findings validate QA predictions. This is the AI flywheel.</p>
+        </GlassCard>
+
+        <GlassCard className="mb-4">
+          <h3 className="text-sm font-bold text-orange-400 mb-3">ISO 27001 Annex A Controls Failed</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-800/50">
+                  <th className="text-left py-2 px-3 text-xs font-semibold text-gray-500 uppercase">Control</th>
+                  <th className="text-left py-2 px-3 text-xs font-semibold text-gray-500 uppercase">Finding</th>
+                  <th className="text-center py-2 px-3 text-xs font-semibold text-gray-500 uppercase">Severity</th>
+                </tr>
+              </thead>
+              <tbody className="text-gray-400">
+                {[
+                  { control: 'A.5.15 — Access Control', finding: 'All users see all projects; no scoping', sev: 'Critical', color: 'text-red-400' },
+                  { control: 'A.5.17 — Authentication', finding: 'Hardcoded credentials, 6-char passwords, no lockout', sev: 'Critical', color: 'text-red-400' },
+                  { control: 'A.8.4 — Source Code Access', finding: 'Live API keys & credentials committed to repo', sev: 'Critical', color: 'text-red-400' },
+                  { control: 'A.8.28 — Secure Coding', finding: 'OS command injection via unsanitized system() calls', sev: 'Critical', color: 'text-red-400' },
+                  { control: 'A.8.3 — Access Restriction', finding: 'Pundit defaults allow any user to CRUD any resource', sev: 'High', color: 'text-orange-400' },
+                  { control: 'A.8.9 — Configuration Mgmt', finding: 'Host auth disabled, Redis TLS verification disabled', sev: 'High', color: 'text-orange-400' },
+                  { control: 'A.8.12 — Data Leakage', finding: 'API keys returned in responses, error details leaked', sev: 'High', color: 'text-orange-400' },
+                  { control: 'A.8.15 — Logging', finding: 'No audit trail for security events', sev: 'Medium', color: 'text-yellow-400' },
+                  { control: 'A.8.25 — Secure Dev Lifecycle', finding: 'No rate limiting, no upload validation', sev: 'Medium', color: 'text-yellow-400' },
+                  { control: 'A.8.26 — App Security Req.', finding: 'CSRF skipped on non-API endpoints, no CSP/HSTS', sev: 'High', color: 'text-orange-400' },
+                ].map((r) => (
+                  <tr key={r.control} className="border-b border-gray-800/30">
+                    <td className="py-2 px-3 text-xs font-mono text-gray-300">{r.control}</td>
+                    <td className="py-2 px-3 text-xs text-gray-400">{r.finding}</td>
+                    <td className={`py-2 px-3 text-center text-xs font-bold ${r.color}`}>{r.sev}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </GlassCard>
+
+        <GlassCard>
+          <h3 className="text-sm font-bold text-green-400 mb-3">Remediation Roadmap to Pass</h3>
+          <div className="space-y-3">
+            {[
+              { priority: 'P0', timeline: 'Day 1', items: 'Rotate all exposed secrets. Add .env and cookies.txt to .gitignore. Purge git history. Fix OS command injection.', color: 'border-red-500/30 bg-red-500/5' },
+              { priority: 'P1', timeline: 'Week 1', items: 'Remove :role from registration. Implement Pundit policies. Add project-user membership. Enable Devise :lockable, increase password min to 12.', color: 'border-orange-500/30 bg-orange-500/5' },
+              { priority: 'P2', timeline: 'Week 2', items: 'Add Rack::Attack rate limiting. Configure security headers (CSP, HSTS). Enable Redis TLS. Implement audit logging. Hash API keys.', color: 'border-yellow-500/30 bg-yellow-500/5' },
+              { priority: 'P3', timeline: 'Month 1', items: 'Validate ZIP uploads. Add AI input validation. Separate JWT secret. Add MFA support. Configure mailer DMARC/SPF.', color: 'border-blue-500/30 bg-blue-500/5' },
+            ].map((r) => (
+              <div key={r.priority} className={`rounded-lg border p-3 ${r.color}`}>
+                <div className="flex items-center gap-3 mb-1">
+                  <span className="text-xs font-bold text-gray-300">{r.priority}</span>
+                  <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-500">{r.timeline}</span>
+                </div>
+                <p className="text-xs text-gray-400">{r.items}</p>
+              </div>
+            ))}
+          </div>
         </GlassCard>
       </Section>
 

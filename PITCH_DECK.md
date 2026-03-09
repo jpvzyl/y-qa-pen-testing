@@ -193,36 +193,67 @@ This mirrors human code review: one engineer writes, another reviews. The result
 
 ---
 
-## 6. Demo: Pen Testing the Demo Event Platform
+## 6. ISO 27001 Penetration Test — Y-QA Platform Self-Assessment
 
 ### The Story
 
-The y-qa Demo Event project is an **Event Management System** built with Rails 7.1, PostgreSQL, Stripe, Elasticsearch, and Hotwire. The pen testing module scans this exact target:
+Y-QA performed an ISO 27001-aligned penetration test **against its own codebase** — the Y-QA Platform (Rails 7.1, PostgreSQL, Redis, Sidekiq, Devise JWT, Claude/OpenAI integrations). This is a real security assessment, not a demo.
 
-**Target:** `https://demo-events.example.com`
+**Target:** `Y-QA Platform — Rails 7.1.5.1 / Puma 6.6.0 / PostgreSQL 15`
 
-### What the Pen Test Found
+### Executive Summary
 
-| Severity | Count | Highlights |
+| Severity | Count | Key Findings |
 |----------|-------|------------|
-| **Critical** | 6 | SQL injection in event search, Stored XSS in event descriptions, IDOR on ticket records, Stripe secret key in client JS, Broken object-level auth on API, Mass assignment creates free tickets |
-| **High** | 13 | Payment amount tampering, Race condition in Stripe webhooks, Mass assignment role escalation, Missing rate limiting, Promo code bypass, CSRF on registration |
-| **Medium** | 15 | Missing CSP, Elasticsearch injection, Session cookie flags, CORS misconfiguration, QR code replay, Outdated gems with CVEs |
-| **Low** | 9 | User enumeration, Verbose headers, Missing HttpOnly, Autocomplete on card fields |
-| **Info** | 6 | Logging gaps, No account lockout, robots.txt exposure |
+| **Critical** | 7 | Live API key in .env, Hardcoded Devise secret, OS command injection via git, Session cookie in repo, Hardcoded user credentials, Self-assignable admin role, Broken API access control |
+| **High** | 13 | Host authorization disabled, No project scoping, API key leaked in responses, TLS verification disabled on Redis, CSRF bypassed, JWT key reuse, Unvalidated project fallback |
+| **Medium** | 10 | No brute-force protection, Weak password policy (6 chars), Zip Slip risk, User enumeration, Overly permissive Pundit policies, Long password reset window, Error details leaked |
+| **Low** | 8 | Long JWT expiry, Debug logging, User enumeration via registration, Missing resource policies, Backup files committed, Weak email regex |
+| **Info** | 4 | No security headers, No audit logging, No rate limiting, No upload validation |
 
-### AI Cross-Reference
+### ISO 27001 Annex A Controls Failed
 
-The pen testing module **independently confirmed** vulnerabilities that the Y-QA core AI had **predicted**:
+| ISO 27001 Control | Finding | Severity |
+|-------------------|---------|----------|
+| **A.5.15 — Access Control** | All users see all projects; no project scoping or multi-tenancy | Critical |
+| **A.5.17 — Authentication Information** | Hardcoded credentials, 6-char passwords, no lockout, no MFA | Critical |
+| **A.8.3 — Information Access Restriction** | Pundit defaults allow any authenticated user to CRUD any resource | High |
+| **A.8.4 — Access to Source Code** | Live API keys, session cookies, and credentials committed to repo | Critical |
+| **A.8.9 — Configuration Management** | Host authorization disabled, Redis TLS verification disabled | High |
+| **A.8.12 — Data Leakage Prevention** | API keys returned in API responses; error messages leak internals | High |
+| **A.8.15 — Logging** | No audit trail for security events, no structured API logging | Medium |
+| **A.8.25 — Secure Development Lifecycle** | No rate limiting, no input validation on uploads, broad exception handling | Medium |
+| **A.8.26 — Application Security Requirements** | CSRF skipped on non-API endpoints, no CSP/HSTS headers | High |
+| **A.8.28 — Secure Coding** | OS command injection via system() calls with unsanitized user input | Critical |
 
-| Y-QA AI Prediction | Pen Test Finding | Status |
-|--------------------|------------------|--------|
-| "Race condition in payment processing" (Defect Prediction) | Race Condition in Stripe Webhook Processing (CVSS 7.5) | Confirmed |
-| "SQL Injection Risk in Event Filters" (Defect Prediction) | SQL Injection in Event Search Filters (CVSS 9.8) | Confirmed |
-| "Inconsistent Promo Code Validation" (Defect Prediction) | Promo Code Bypass - Expired Codes Accepted (CVSS 7.2) | Confirmed |
-| "Slow Page Load on Dashboard" (Exploration Finding) | N+1 Query Timing Side Channel (CVSS 5.3) | Confirmed |
+### Top 5 Critical Findings — Must Fix Before Audit
 
-**This is the AI flywheel: QA predictions feed security testing, security findings validate QA predictions.**
+| # | Finding | CVSS | Fix Priority |
+|---|---------|------|-------------|
+| 1 | **Hardcoded Anthropic API Key** committed to repository (.env) | 9.8 | Immediate — rotate key, add .env to .gitignore, purge git history |
+| 2 | **OS Command Injection** — branch_name passed directly to system() in CodebaseAnalysisJob | 9.8 | Immediate — use array args for system(), validate branch names |
+| 3 | **Hardcoded Devise Secret Key** — enables forging password reset tokens for any user | 9.1 | Immediate — move to Rails credentials, rotate key |
+| 4 | **Self-Assignable Admin Role** — registration endpoint permits role: "admin" | 8.8 | Immediate — remove :role from sign_up_params |
+| 5 | **Hardcoded User Credentials** — real email/password in ExploratoryTestingService | 8.6 | Immediate — remove defaults, use env vars only |
+
+### What Must Be Done to Pass the ISO 27001 Pen Test
+
+| Priority | Action Items | Timeline |
+|----------|-------------|----------|
+| **P0 — Immediate** | Rotate all exposed secrets (API keys, Devise key, passwords). Add .env and cookies.txt to .gitignore. Purge git history. | Day 1 |
+| **P0 — Immediate** | Fix OS command injection — replace system() string interpolation with array arguments. Validate all user input passed to shell commands. | Day 1–2 |
+| **P1 — Within 1 Week** | Remove :role from registration params. Implement proper Pundit policies for every resource. Add project-user membership model. | Week 1 |
+| **P1 — Within 1 Week** | Enable Devise :lockable (5 attempts), increase password minimum to 12 chars, enable :timeoutable (30 min), enable paranoid mode. | Week 1 |
+| **P2 — Within 2 Weeks** | Add Rack::Attack rate limiting. Configure security headers (CSP, HSTS, X-Frame-Options). Enable Redis TLS verification. Fix CSRF on non-API endpoints. | Week 2 |
+| **P2 — Within 2 Weeks** | Implement audit logging for all security events. Add structured API request logging. Hash API keys with BCrypt. | Week 2 |
+| **P3 — Within 1 Month** | Validate ZIP uploads (type, size, path traversal). Add input validation on AI generation endpoints. Separate JWT secret from secret_key_base. | Month 1 |
+| **P3 — Within 1 Month** | Remove backup files from repo. Implement API pagination. Add MFA support. Configure DMARC/SPF/DKIM for mailer. | Month 1 |
+
+### Pen Test Verdict
+
+**FAIL — The Y-QA Platform does not currently pass an ISO 27001-aligned penetration test.**
+
+The platform has 7 critical and 13 high-severity vulnerabilities that must be remediated before it can be considered compliant with ISO 27001 Annex A controls for access control (A.5.15), authentication (A.5.17), secure coding (A.8.28), and data leakage prevention (A.8.12). The P0 and P1 items above represent the minimum remediation required to re-test.
 
 ---
 
