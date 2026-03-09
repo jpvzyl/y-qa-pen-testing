@@ -19,6 +19,7 @@ import ThreatIntel from './pages/ThreatIntel'
 import Settings from './pages/Settings'
 import PitchDeck from './pages/PitchDeck'
 import Remediation from './pages/Remediation'
+import AuditActions from './pages/AuditActions'
 
 export default function App() {
   return (
@@ -52,6 +53,7 @@ export default function App() {
           <Route path="settings" element={<Settings />} />
           <Route path="pitch" element={<PitchDeck />} />
           <Route path="remediation" element={<Remediation />} />
+          <Route path="audit-actions" element={<AuditActions />} />
         </Route>
       </Routes>
     </AuthProvider>
