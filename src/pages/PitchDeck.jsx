@@ -2,54 +2,65 @@ import { Shield, Brain, Layers, Target, BarChart3, Lock, Zap, Eye, FileCheck, Gl
 import GlassCard from '../components/GlassCard'
 
 function Section({ id, children }) {
-  return <section id={id} className="scroll-mt-8">{children}</section>
+  return <section id={id} className="scroll-mt-10">{children}</section>
 }
 
 function SectionTitle({ icon: Icon, title, subtitle, color = 'red' }) {
-  const colors = {
-    red: 'bg-red-500/20 text-red-400',
-    blue: 'bg-blue-500/20 text-blue-400',
-    purple: 'bg-purple-500/20 text-purple-400',
-    orange: 'bg-orange-500/20 text-orange-400',
-    green: 'bg-green-500/20 text-green-400',
-    cyan: 'bg-cyan-500/20 text-cyan-400',
+  const colorMap = {
+    red: { icon: 'bg-red-500/15 border-red-500/20 text-red-400', line: 'from-red-500/40' },
+    blue: { icon: 'bg-blue-500/15 border-blue-500/20 text-blue-400', line: 'from-blue-500/40' },
+    purple: { icon: 'bg-purple-500/15 border-purple-500/20 text-purple-400', line: 'from-purple-500/40' },
+    orange: { icon: 'bg-orange-500/15 border-orange-500/20 text-orange-400', line: 'from-orange-500/40' },
+    green: { icon: 'bg-green-500/15 border-green-500/20 text-green-400', line: 'from-green-500/40' },
+    cyan: { icon: 'bg-cyan-500/15 border-cyan-500/20 text-cyan-400', line: 'from-cyan-500/40' },
   }
+  const c = colorMap[color]
   return (
-    <div className="mb-6">
-      <div className="flex items-center gap-3 mb-2">
-        <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${colors[color]}`}>
+    <div className="mb-8">
+      <div className="flex items-center gap-4 mb-2">
+        <div className={`flex h-11 w-11 items-center justify-center rounded-xl border ${c.icon}`}>
           <Icon className="h-5 w-5" />
         </div>
-        <h2 className="text-2xl font-bold text-gray-100">{title}</h2>
+        <div>
+          <h2 className="text-2xl font-extrabold text-white tracking-tight">{title}</h2>
+          {subtitle && <p className="text-sm text-gray-500 mt-0.5">{subtitle}</p>}
+        </div>
       </div>
-      {subtitle && <p className="text-gray-400 ml-[52px]">{subtitle}</p>}
+      <div className={`h-px mt-4 bg-gradient-to-r ${c.line} to-transparent`} />
     </div>
   )
 }
 
 function StatCard({ value, label, color = 'red' }) {
-  const borders = { red: 'border-red-500/30', blue: 'border-blue-500/30', purple: 'border-purple-500/30', orange: 'border-orange-500/30', green: 'border-green-500/30', cyan: 'border-cyan-500/30' }
-  const texts = { red: 'text-red-400', blue: 'text-blue-400', purple: 'text-purple-400', orange: 'text-orange-400', green: 'text-green-400', cyan: 'text-cyan-400' }
+  const colorMap = {
+    red: 'border-red-500/20 text-red-400',
+    blue: 'border-blue-500/20 text-blue-400',
+    purple: 'border-purple-500/20 text-purple-400',
+    orange: 'border-orange-500/20 text-orange-400',
+    green: 'border-green-500/20 text-green-400',
+    cyan: 'border-cyan-500/20 text-cyan-400',
+  }
+  const [border, text] = colorMap[color].split(' ')
   return (
-    <div className={`rounded-xl border ${borders[color]} bg-white/[0.02] p-4 text-center`}>
-      <div className={`text-2xl font-bold ${texts[color]}`}>{value}</div>
-      <div className="text-xs text-gray-500 mt-1">{label}</div>
+    <div className={`rounded-xl border ${colorMap[color].split(' ')[0]} bg-white/[0.02] p-4 text-center transition-all hover:bg-white/[0.04] hover:scale-[1.02]`}>
+      <div className={`text-2xl font-extrabold ${colorMap[color].split(' ')[1]}`}>{value}</div>
+      <div className="text-[11px] font-medium text-gray-500 mt-1 uppercase tracking-wider">{label}</div>
     </div>
   )
 }
 
 function FeatureRow({ icon: Icon, title, desc, ai }) {
   return (
-    <div className="flex gap-4 py-3 border-b border-gray-800/40 last:border-0">
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/[0.04]">
-        <Icon className="h-4 w-4 text-gray-400" />
+    <div className="flex gap-4 py-3.5 border-b border-white/[0.04] last:border-0 group">
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/[0.03] border border-white/[0.05] transition-colors group-hover:bg-white/[0.06]">
+        <Icon className="h-4 w-4 text-gray-500 transition-colors group-hover:text-gray-300" />
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap">
           <span className="text-sm font-semibold text-gray-200">{title}</span>
-          {ai && <span className="rounded-full bg-purple-500/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-purple-400">AI-Powered</span>}
+          {ai && <span className="rounded-md bg-purple-500/10 border border-purple-500/15 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-purple-400">AI</span>}
         </div>
-        <p className="text-xs text-gray-500 mt-0.5">{desc}</p>
+        <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{desc}</p>
       </div>
     </div>
   )
@@ -57,8 +68,8 @@ function FeatureRow({ icon: Icon, title, desc, ai }) {
 
 function CompareCell({ yes }) {
   return yes
-    ? <td className="px-3 py-2 text-center"><CheckCircle2 className="h-4 w-4 text-green-400 mx-auto" /></td>
-    : <td className="px-3 py-2 text-center text-gray-700">—</td>
+    ? <td className="px-3 py-2.5 text-center"><CheckCircle2 className="h-4 w-4 text-emerald-400 mx-auto" /></td>
+    : <td className="px-3 py-2.5 text-center text-gray-800">—</td>
 }
 
 const NAV_ITEMS = [
@@ -75,29 +86,30 @@ const NAV_ITEMS = [
 
 export default function PitchDeck() {
   return (
-    <div className="max-w-5xl mx-auto space-y-12 pb-20">
+    <div className="max-w-5xl mx-auto space-y-14 pb-24">
       {/* Hero */}
-      <div className="relative overflow-hidden rounded-2xl border border-gray-800/50 bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900 p-8 md:p-12">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(239,68,68,0.08),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(168,85,247,0.06),transparent_50%)]" />
+      <div className="relative overflow-hidden rounded-2xl border border-white/[0.06] bg-[#060a14] p-10 md:p-14">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_30%_-10%,rgba(239,68,68,0.1),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_110%,rgba(139,92,246,0.08),transparent_60%)]" />
+        <div className="absolute inset-0 cyber-grid opacity-30" />
         <div className="relative">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-red-500/20 glow-red">
-              <Shield className="h-8 w-8 text-red-400" />
+          <div className="flex items-center gap-4 mb-8">
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-red-500/15 border border-red-500/20 glow-red">
+              <Shield className="h-7 w-7 text-red-400" />
             </div>
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-100">Y-QA</h1>
-              <p className="text-sm text-gray-500 font-medium tracking-wide">AI-Powered Quality & Security Platform</p>
+              <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white">Y-QA</h1>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-gray-500">AI-Powered Security Platform</p>
             </div>
           </div>
           <p className="text-xl md:text-2xl font-light text-gray-300 max-w-2xl leading-relaxed">
-            One platform that unifies <span className="text-red-400 font-semibold">functional QA</span>,{' '}
-            <span className="text-orange-400 font-semibold">penetration testing</span>, and{' '}
-            <span className="text-purple-400 font-semibold">compliance certification</span> — all driven by dual-AI architecture.
+            One platform that unifies <span className="text-red-400 font-bold">functional QA</span>,{' '}
+            <span className="text-orange-400 font-bold">penetration testing</span>, and{' '}
+            <span className="text-purple-400 font-bold">compliance certification</span> — all driven by dual-AI architecture.
           </p>
-          <div className="flex flex-wrap gap-3 mt-8">
+          <div className="flex flex-wrap gap-2.5 mt-10">
             {NAV_ITEMS.map((item) => (
-              <a key={item.id} href={`#${item.id}`} className="rounded-full border border-gray-700/50 bg-white/[0.03] px-4 py-1.5 text-xs font-medium text-gray-400 transition hover:border-red-500/30 hover:text-red-400">
+              <a key={item.id} href={`#${item.id}`} className="rounded-lg border border-white/[0.06] bg-white/[0.03] px-4 py-2 text-xs font-semibold text-gray-400 transition-all hover:border-red-500/25 hover:text-red-400 hover:bg-red-500/[0.04]">
                 {item.label}
               </a>
             ))}
@@ -107,14 +119,14 @@ export default function PitchDeck() {
 
       {/* Stats bar */}
       <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
-        <StatCard value="55+" label="Data Models" color="red" />
+        <StatCard value="55+" label="Models" color="red" />
         <StatCard value="47" label="Controllers" color="orange" />
-        <StatCard value="80+" label="API Endpoints" color="blue" />
+        <StatCard value="80+" label="Endpoints" color="blue" />
         <StatCard value="8" label="AI Services" color="purple" />
         <StatCard value="3" label="Modules" color="green" />
-        <StatCard value="5" label="Compliance Frameworks" color="cyan" />
-        <StatCard value="14" label="MITRE Tactics" color="orange" />
-        <StatCard value="159" label="Tests Passing" color="green" />
+        <StatCard value="5" label="Frameworks" color="cyan" />
+        <StatCard value="14" label="ATT&CK" color="orange" />
+        <StatCard value="159" label="Tests" color="green" />
       </div>
 
       {/* 1. The Problem */}
@@ -631,15 +643,16 @@ export default function PitchDeck() {
       </Section>
 
       {/* Footer */}
-      <div className="text-center pt-8 border-t border-gray-800/50">
-        <div className="flex items-center justify-center gap-3 mb-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-500/20">
-            <Shield className="h-5 w-5 text-red-400" />
+      <div className="text-center pt-10">
+        <div className="h-px mb-10 bg-gradient-to-r from-transparent via-gray-800 to-transparent" />
+        <div className="flex items-center justify-center gap-4 mb-4">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-red-500/15 border border-red-500/20 glow-red">
+            <Shield className="h-6 w-6 text-red-400" />
           </div>
-          <span className="text-lg font-bold text-gray-200">Y-QA</span>
+          <span className="text-xl font-extrabold text-white tracking-tight">Y-QA</span>
         </div>
-        <p className="text-sm text-gray-500">AI-Powered Quality & Security Platform</p>
-        <p className="text-xs text-gray-600 mt-2">March 2026 | Pitch Deck</p>
+        <p className="text-sm font-medium text-gray-400">AI-Powered Quality & Security Platform</p>
+        <p className="text-xs text-gray-600 mt-2 font-medium">March 2026 | Confidential</p>
       </div>
     </div>
   )

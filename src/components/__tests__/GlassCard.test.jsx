@@ -15,12 +15,12 @@ describe('GlassCard', () => {
 
   it('applies padding by default', () => {
     const { container } = render(<GlassCard>Content</GlassCard>)
-    expect(container.firstChild.className).toContain('p-5')
+    expect(container.firstChild.className).toContain('p-6')
   })
 
   it('removes padding when padding=false', () => {
     const { container } = render(<GlassCard padding={false}>Content</GlassCard>)
-    expect(container.firstChild.className).not.toContain('p-5')
+    expect(container.firstChild.className).not.toContain('p-6')
   })
 
   it('applies glow classes', () => {

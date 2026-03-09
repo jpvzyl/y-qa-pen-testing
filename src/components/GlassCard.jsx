@@ -5,8 +5,8 @@ export default function GlassCard({ children, className, glow, hover = true, pad
     <div
       className={clsx(
         'glass-card',
-        padding && 'p-5',
-        hover && 'hover:translate-y-[-1px]',
+        padding && 'p-6',
+        hover && 'hover:translate-y-[-2px]',
         glow === 'red' && 'glow-red',
         glow === 'blue' && 'glow-blue',
         glow === 'green' && 'glow-green',

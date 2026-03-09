@@ -36,9 +36,8 @@ describe('Login', () => {
 
   it('renders the login form', () => {
     renderLogin()
-    expect(screen.getByText('Pen Testing')).toBeInTheDocument()
     expect(screen.getByPlaceholderText('you@company.com')).toBeInTheDocument()
-    expect(screen.getByPlaceholderText('••••••••')).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('••••••••••')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /sign in/i })).toBeInTheDocument()
   })
 
@@ -48,9 +47,9 @@ describe('Login', () => {
     expect(screen.getByText(/create account/i)).toBeInTheDocument()
   })
 
-  it('renders platform description', () => {
+  it('renders brand and description', () => {
     renderLogin()
-    expect(screen.getByText('AI-Driven Penetration Testing Platform')).toBeInTheDocument()
+    expect(screen.getByText(/secured by y-qa/i)).toBeInTheDocument()
   })
 
   it('submits login with email and password', async () => {
@@ -59,7 +58,7 @@ describe('Login', () => {
     renderLogin()
 
     await user.type(screen.getByPlaceholderText('you@company.com'), 'test@example.com')
-    await user.type(screen.getByPlaceholderText('••••••••'), 'password123')
+    await user.type(screen.getByPlaceholderText('••••••••••'), 'password123')
     await user.click(screen.getByRole('button', { name: /sign in/i }))
 
     expect(mockLogin).toHaveBeenCalledWith('test@example.com', 'password123')
@@ -71,7 +70,7 @@ describe('Login', () => {
     renderLogin()
 
     await user.type(screen.getByPlaceholderText('you@company.com'), 'bad@example.com')
-    await user.type(screen.getByPlaceholderText('••••••••'), 'wrongpass')
+    await user.type(screen.getByPlaceholderText('••••••••••'), 'wrongpass')
     await user.click(screen.getByRole('button', { name: /sign in/i }))
 
     expect(await screen.findByText('Invalid credentials')).toBeInTheDocument()
@@ -83,7 +82,7 @@ describe('Login', () => {
     renderLogin()
 
     await user.type(screen.getByPlaceholderText('you@company.com'), 'test@example.com')
-    await user.type(screen.getByPlaceholderText('••••••••'), 'pass')
+    await user.type(screen.getByPlaceholderText('••••••••••'), 'pass')
     await user.click(screen.getByRole('button', { name: /sign in/i }))
 
     expect(mockNavigate).toHaveBeenCalledWith('/', { replace: true })
