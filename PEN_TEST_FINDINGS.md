@@ -476,54 +476,54 @@ Shell commands built with string interpolation in `Open3.capture3`. Potential co
 ### P0 — Immediate (Day 1)
 
 - [ ] Rotate the Anthropic API key in the Anthropic dashboard
-- [ ] Add `.env`, `cookies.txt` to `.gitignore`
+- [x] Add `.env`, `cookies.txt` to `.gitignore`
 - [ ] Remove `.env` and `cookies.txt` from git history (BFG Repo-Cleaner)
-- [ ] Fix OS command injection: replace `system()` string interpolation with array arguments in `codebase_analysis_job.rb`
-- [ ] Validate branch names: `/\A[a-zA-Z0-9._\-\/]+\z/`
+- [x] Fix OS command injection: replace `system()` string interpolation with array arguments in `codebase_analysis_job.rb`
+- [x] Validate branch names: `/\A[a-zA-Z0-9._\-\/]+\z/`
 - [ ] Change the hardcoded password on all services where it was reused
-- [ ] Remove hardcoded credential fallbacks from `exploratory_testing_service.rb`
+- [x] Remove hardcoded credential fallbacks from `exploratory_testing_service.rb`
 
 ### P1 — Within 1 Week
 
-- [ ] Remove `:role` from `sign_up_params` in `RegistrationsController`
-- [ ] Remove `:role` from `configure_permitted_parameters` in `ApplicationController`
-- [ ] Move Devise `secret_key` to Rails credentials or environment variable
-- [ ] Set `DEVISE_JWT_SECRET_KEY` as a separate env var (not `secret_key_base`)
-- [ ] Enable Devise `:lockable` module (5 attempts, email + time unlock)
-- [ ] Increase `password_length` to `12..128`
-- [ ] Enable Devise `:timeoutable` (30 minutes)
-- [ ] Enable `config.paranoid = true`
-- [ ] Implement project-user membership model
-- [ ] Create resource-specific Pundit policies (ProjectPolicy, TestCasePolicy, etc.)
-- [ ] Remove `api_key` from API project serialiser
-- [ ] Remove `Project.first` fallback from `BaseController#resolve_project`
+- [x] Remove `:role` from `sign_up_params` in `RegistrationsController`
+- [x] Remove `:role` from `configure_permitted_parameters` in `ApplicationController`
+- [x] Move Devise `secret_key` to Rails credentials or environment variable
+- [x] Set `DEVISE_JWT_SECRET_KEY` as a separate env var (not `secret_key_base`)
+- [x] Enable Devise `:lockable` module (5 attempts, email + time unlock)
+- [x] Increase `password_length` to `12..128`
+- [x] Enable Devise `:timeoutable` (30 minutes)
+- [x] Enable `config.paranoid = true`
+- [ ] Implement project-user membership model (requires migration)
+- [x] Create resource-specific Pundit policies (ProjectPolicy, TestCasePolicy, etc.)
+- [x] Remove `api_key` from API project serialiser
+- [x] Remove `Project.first` fallback from `BaseController#resolve_project`
 
 ### P2 — Within 2 Weeks
 
-- [ ] Add `gem 'rack-attack'` and configure rate limits
-- [ ] Set `Rails.application.config.hosts` to production domain allowlist
-- [ ] Remove `verify_mode: OpenSSL::SSL::VERIFY_NONE` from Redis config
-- [ ] Configure security headers: CSP, HSTS, X-Frame-Options, Referrer-Policy
-- [ ] Fix CSRF: remove `skip_before_action :verify_authenticity_token` from non-API controllers
-- [ ] Implement audit logging for security events
-- [ ] Hash API keys with BCrypt on storage
-- [ ] Replace `$redis.keys` with `SCAN` cursor
-- [ ] Reduce `reset_password_within` to `30.minutes`
-- [ ] Set mailer sender to a real domain address
+- [x] Add `gem 'rack-attack'` and configure rate limits
+- [x] Set `Rails.application.config.hosts` to production domain allowlist
+- [x] Remove `verify_mode: OpenSSL::SSL::VERIFY_NONE` from Redis config
+- [x] Configure security headers: CSP, HSTS, X-Frame-Options, Referrer-Policy
+- [x] Fix CSRF: remove `skip_before_action :verify_authenticity_token` from non-API controllers
+- [x] Implement audit logging for security events
+- [ ] Hash API keys with BCrypt on storage (requires migration)
+- [x] Replace `$redis.keys` with `SCAN` cursor
+- [x] Reduce `reset_password_within` to `30.minutes`
+- [x] Set mailer sender to a real domain address
 
 ### P3 — Within 1 Month
 
-- [ ] Validate ZIP uploads (extension, content-type, magic bytes)
-- [ ] Add path traversal protection to ZIP extraction
-- [ ] Add input length limits and validation on AI generation endpoints
-- [ ] Reduce JWT expiry to 15 minutes with refresh token rotation
-- [ ] Remove `.backup` and `.bak` files, add to `.gitignore`
-- [ ] Fix `Open3.capture3` to use array arguments
-- [ ] Only rescue specific JWT exceptions (not `StandardError`)
-- [ ] Add CORS configuration with `rack-cors`
-- [ ] Configure DMARC, SPF, DKIM for mailer domain
-- [ ] Implement MFA support
-- [ ] Remove all `puts` debug statements from services
+- [x] Validate ZIP uploads (extension, content-type, magic bytes)
+- [x] Add path traversal protection to ZIP extraction
+- [x] Add input length limits and validation on AI generation endpoints
+- [x] Reduce JWT expiry to 15 minutes with refresh token rotation
+- [x] Remove `.backup` and `.bak` files, add to `.gitignore`
+- [x] Fix `Open3.capture3` to use array arguments
+- [x] Only rescue specific JWT exceptions (not `StandardError`)
+- [x] Add CORS configuration with `rack-cors`
+- [ ] Configure DMARC, SPF, DKIM for mailer domain (DNS/infrastructure change)
+- [ ] Implement MFA support (requires gem + migration)
+- [x] Remove all `puts` debug statements from services
 
 ---
 
